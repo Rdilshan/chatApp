@@ -91,6 +91,25 @@ class _ChathomeState extends State<Chathome> {
                 onChanged: (value) => _runFilter(value),
               ),
             ),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color:const Color.fromARGB(255, 20, 20, 20)
+                        .withOpacity(0.17), 
+                    blurRadius: 80.0, 
+                    offset: const Offset(10, 10), 
+                  ),
+                ],
+              ),
+              child: const Divider(
+                height: 10,
+                indent: 1,
+                endIndent: 1,
+                thickness: 1,
+                color: Color.fromARGB(255, 241, 241, 241),
+              ),
+            ),
             FoundUser.isNotEmpty
                 ? ListView.builder(
                     itemCount: FoundUser.length,

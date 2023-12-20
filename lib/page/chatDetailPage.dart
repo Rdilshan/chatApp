@@ -35,7 +35,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         appBar: AppBar(
           elevation: 0,
           automaticallyImplyLeading: false,
-          backgroundColor: Color.fromARGB(132, 49, 112, 206),
+          backgroundColor: Color.fromARGB(103, 46, 125, 181),
           flexibleSpace: SafeArea(
             child: Container(
               padding: EdgeInsets.only(right: 16),
