@@ -5,6 +5,7 @@ class ChatMessage{
 
   late String messageContent;
   late String messageType;
+  late String mesMsg;
 
-  ChatMessage({required this.messageContent, required this.messageType});
+  ChatMessage({required this.messageContent, required this.messageType,required this.mesMsg});
 }

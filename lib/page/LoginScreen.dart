@@ -16,74 +16,78 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.only(top: 60.0),
+              padding: EdgeInsets.only(top: 120.0),
               child: Center(
                 child: SizedBox(
-                    width: 200,
-                    height: 150,
-                    
-                    child:  Image(image: AssetImage("assets/images/logo.png"))),
+                    width: 400,
+                    height: 250,
+                    child: Image(image: AssetImage("assets/images/logo.png"))),
               ),
             ),
-            const Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+            const SizedBox(height: 90),
+             Padding(
+              padding:
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 0, bottom: 0),
               child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
+                  border: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(15), // Adjust the border radius
+                  ),
+                  labelText: 'Email',
+                  hintText: 'Enter valid email id as abc@gmail.com',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                ),
               ),
             ),
-           const Padding(
-              padding:EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
+             Padding(
+              padding:
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
-
                 obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  labelText: 'Password',
+                  hintText: 'Enter secure password',
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 12), // Adjust the padding
+                ),
               ),
             ),
-            	TextButton(
-              onPressed: (){
+            TextButton(
+              onPressed: () {
                 if (kDebugMode) {
                   print("click");
                 }
               },
-              child:const Text(
+              child: const Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Color.fromARGB(255, 4, 155, 178), fontSize: 15),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: 	TextButton(
+                  color: Color.fromARGB(255, 4, 155, 178), borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) =>const Chathome()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Chathome()));
                 },
-                child:const Text(
+                child: const Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 130,
-            ),
-           const Text('New User? Create Account')
           ],
         ),
       ),

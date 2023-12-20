@@ -14,19 +14,24 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: EasySplashScreen(
-      logo:const Image(image: AssetImage("assets/images/logo.png")),
+      logo: const Image(
+        image: AssetImage("assets/images/logo.png"),
+        width: 400, // Set the width to your desired size
+        height: 400
+      ),
       title: const Text(
-        "Title",
+        "Powered by Zion Mobility",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 4, 155, 178),
         ),
       ),
-      backgroundColor: Colors.grey.shade400,
+      backgroundColor: const Color.fromARGB(255, 230, 230, 230),
       showLoader: true,
       // ignore: unnecessary_const
-      loadingText: const Text("Loading..."),
-      navigator:const LoginScreen(),
+      loadingText: const Text("Starting..."),
+      navigator: const LoginScreen(),
       durationInSeconds: 5,
     ));
   }

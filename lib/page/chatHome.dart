@@ -12,20 +12,10 @@ class Chathome extends StatefulWidget {
 
 class _ChathomeState extends State<Chathome> {
   List<ChatUsers> chatUsers = [
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb"),
-    ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg","24 Feb")
+    ChatUsers("Jane Russel", "Awesome Setup",
+        "https://i.ibb.co/C9S88rZ/logo.png", "Now"),
+    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg",
+        "24 Feb")
   ];
   List<ChatUsers> FoundUser = [];
 
@@ -60,52 +50,24 @@ class _ChathomeState extends State<Chathome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-          SizedBox(height: 25,),
-
-            // SafeArea(
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: <Widget>[
-            //         const Text(
-            //           "Conversations",
-            //           style:
-            //               TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            //         ),
-            //         Container(
-            //           padding: const EdgeInsets.only(
-            //               left: 8, right: 8, top: 2, bottom: 2),
-            //           height: 30,
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(30),
-            //             color: Colors.pink[50],
-            //           ),
-            //           child: const Row(
-            //             children: <Widget>[
-            //               Icon(
-            //                 Icons.add,
-            //                 color: Colors.pink,
-            //                 size: 20,
-            //               ),
-            //               SizedBox(
-            //                 width: 2,
-            //               ),
-            //               Text(
-            //                 "Add New",
-            //                 style: TextStyle(
-            //                     fontSize: 14, fontWeight: FontWeight.bold),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-
-
-
+            const SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Shop List",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 3, 150, 173),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 13, left: 16, right: 16),
               child: TextField(
@@ -145,7 +107,7 @@ class _ChathomeState extends State<Chathome> {
                       );
                     },
                   )
-                :const Center(
+                : const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
