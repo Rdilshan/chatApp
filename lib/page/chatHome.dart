@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:chatapp/page/conversationList.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/ChatUsers.dart';
+import 'package:http/http.dart' as http;
 
 class Chathome extends StatefulWidget {
   const Chathome({super.key});
@@ -11,16 +16,59 @@ class Chathome extends StatefulWidget {
 }
 
 class _ChathomeState extends State<Chathome> {
-  List<ChatUsers> chatUsers = [
-    ChatUsers("Jane Russel", "Awesome Setup",
-        "https://i.ibb.co/C9S88rZ/logo.png", "Now"),
-    ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg",
-        "24 Feb")
-  ];
+  String? idnumber;
+  String? mobilenumber;
+
+  // List<ChatUsers> chatUsers = [
+  //   ChatUsers("Jane Russel", "Awesome Setup","https://i.ibb.co/C9S88rZ/logo.png", "Now"),
+  //   ChatUsers("Randika", "hi", "https://randomuser.me/api/portraits/men/5.jpg",
+  //       "24 Feb")
+  // ];
+
+  List<ChatUsers> chatUsers = [];
   List<ChatUsers> FoundUser = [];
+
+  void loadSessionData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    idnumber = prefs.getString('idnumber');
+    mobilenumber = prefs.getString('mobilenumber');
+    getChatDetails();
+  }
+
+  Future<void> getChatDetails() async {
+    var url = Uri.https(
+        'asiald.lk', '/internal-projects/pos/FormobileAPK/getshopcchat.php');
+    var response = await http
+        .post(url, body: {'idnumber': idnumber, 'mobilenumber': mobilenumber});
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      // Assuming jsonResponse is a list (JSON array)
+      for (var entry in jsonResponse) {
+        String shopid = entry["id"];
+        String recieverID = entry["recieverID"];
+        String name = entry["name"];
+        String messageText = entry["messageText"];
+        String imageURL = entry["imageURL"];
+        String time = entry["time"];
+
+        ChatUsers newChatUser = ChatUsers(shopid,recieverID,name, messageText, imageURL, time);
+
+        setState(() {
+          chatUsers.add(newChatUser);
+          isLoading=false;
+        });
+      }
+    }
+  }
 
   @override
   void initState() {
+    setState(() {
+      isLoading = true;
+    });
+    loadSessionData();
     FoundUser = chatUsers;
     super.initState();
   }
@@ -40,6 +88,7 @@ class _ChathomeState extends State<Chathome> {
     });
   }
 
+  bool isLoading = false;
   String searchText = '';
   @override
   Widget build(BuildContext context) {
@@ -95,10 +144,10 @@ class _ChathomeState extends State<Chathome> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color:const Color.fromARGB(255, 20, 20, 20)
-                        .withOpacity(0.17), 
-                    blurRadius: 80.0, 
-                    offset: const Offset(10, 10), 
+                    color:
+                        const Color.fromARGB(255, 20, 20, 20).withOpacity(0.17),
+                    blurRadius: 80.0,
+                    offset: const Offset(10, 10),
                   ),
                 ],
               ),
@@ -118,6 +167,8 @@ class _ChathomeState extends State<Chathome> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return ConversationList(
+                        shopid: FoundUser[index].shopid,
+                        recieverID:FoundUser[index].recieverID,
                         name: FoundUser[index].name,
                         messageText: FoundUser[index].messageText,
                         imageUrl: FoundUser[index].imageURL,
@@ -139,6 +190,22 @@ class _ChathomeState extends State<Chathome> {
                       ],
                     ),
                   ),
+
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isLoading
+                      ? LoadingAnimationWidget.prograssiveDots(
+                          color: Color.fromARGB(255, 4, 155, 178),
+                          size: 80,
+                        )
+                      : SizedBox(),
+                  SizedBox(height:16), // Optional spacing between the loading widget and other content
+                  // Your other content/widgets go here
+                ],
+              ),
+            ),
           ],
         ),
       ),

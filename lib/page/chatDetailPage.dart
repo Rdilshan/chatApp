@@ -1,15 +1,18 @@
+import 'dart:convert';
+
 import 'package:chatapp/model/ChatMessage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // ignore: must_be_immutable
 class ChatDetailPage extends StatefulWidget {
   late String name;
   late String profileimg;
+  late String shopid;
+  late String recieverID;
 
-  ChatDetailPage({Key? key, required this.name, required this.profileimg
-      // Add other parameters here
-      })
-      : super(key: key);
+  ChatDetailPage({Key? key,required this.shopid,required this.recieverID, required this.name, required this.profileimg}): super(key: key);
 
   @override
   State<ChatDetailPage> createState() => _ChatDetailPageState();
@@ -17,18 +20,59 @@ class ChatDetailPage extends StatefulWidget {
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
 
+  bool isLoading = false;
+  List<ChatMessage> messages = [];
 
-  List<ChatMessage> messages = [
-    ChatMessage(
-        messageContent: "Hello, Will",
-        messageType: "1",
-        mesMsg: "https://randomuser.me/api/portraits/men/5.jpg"),
-    ChatMessage(
-        messageContent: "How have you been?",
-        messageType: "0",
-        mesMsg: "https://randomuser.me/api/portraits/men/5.jpg"),
-  ];
+  // List<ChatMessage> messages = [
+  //   ChatMessage(
+  //       messageContent: "Hello, Will",
+  //       messageType: "1",
+  //       mesMsg: "https://randomuser.me/api/portraits/men/5.jpg"),
+  //   ChatMessage(
+  //       messageContent: "How have you been?",
+  //       messageType: "0",
+  //       mesMsg: "https://randomuser.me/api/portraits/men/5.jpg"),
+  // ];
+  void loadchats() async {
 
+       var url = Uri.https(
+      'asiald.lk', '/internal-projects/pos/FormobileAPK/getchat.php');
+      var response = await http.post(url,
+          body: {'shopID': widget.shopid, 'recieverID': widget.recieverID});
+      // print('Response status: ${response.statusCode}');
+      // print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      // Assuming jsonResponse is a list (JSON array)
+      for (var entry in jsonResponse) {
+        String messageContent = entry["messageContent"];
+        String messageType = entry["messageType"];
+        String mesMsg = entry["mesMsg"];
+
+        ChatMessage newChatMessage = ChatMessage(messageContent: messageContent, messageType: messageType, mesMsg: mesMsg);
+
+        setState(() {
+          messages.add(newChatMessage);
+          isLoading=false;
+        });
+      }
+    }
+
+
+
+  }
+
+
+  @override
+  void initState() {
+     setState(() {
+          isLoading=true;
+      });
+    loadchats();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +146,21 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           ),
         ),
         body: Stack(children: <Widget>[
+          Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isLoading
+                      ? LoadingAnimationWidget.prograssiveDots(
+                          color: Color.fromARGB(255, 4, 155, 178),
+                          size: 80,
+                        )
+                      : SizedBox(),
+                  SizedBox(height:16), // Optional spacing between the loading widget and other content
+                  // Your other content/widgets go here
+                ],
+              ),
+            ),
           ListView.builder(
             itemCount: messages.length,
             shrinkWrap: true,
@@ -126,8 +185,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(
-                                messages[index].mesMsg,
+                              Image.network('https://asiald.lk/internal-projects/pos2/images/ads/${messages[index].mesMsg}',
                                 width: 200,
                                 fit: BoxFit.cover,
                               ),

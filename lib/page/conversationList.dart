@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ConversationList extends StatefulWidget {
 
+  String shopid;  
+  String recieverID;
   String name;
   String messageText;
   String imageUrl;
   String time;
   bool isMessageRead;
-  ConversationList({super.key, required this.name,required this.messageText,required this.imageUrl,required this.time,required this.isMessageRead});
+  ConversationList({super.key,required this.shopid,required this.recieverID, required this.name,required this.messageText,required this.imageUrl,required this.time,required this.isMessageRead});
   
   @override
   State<ConversationList> createState() => _ConversationListState();
@@ -29,7 +31,9 @@ class _ConversationListState extends State<ConversationList> {
         Navigator.push(context, MaterialPageRoute(builder: (context){
           return  ChatDetailPage(
             name: widget.name,
+            recieverID:widget.recieverID,
             profileimg: widget.imageUrl,
+            shopid:widget.shopid,
           );
         }));
       },
