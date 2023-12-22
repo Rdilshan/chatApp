@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:chatapp/model/ChatMessage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -11,8 +12,15 @@ class ChatDetailPage extends StatefulWidget {
   late String profileimg;
   late String shopid;
   late String recieverID;
+  late String clamCoin;
 
-  ChatDetailPage({Key? key,required this.shopid,required this.recieverID, required this.name, required this.profileimg}): super(key: key);
+  ChatDetailPage({Key? key,
+  required this.shopid,
+  required this.recieverID,
+   required this.name,
+    required this.profileimg,
+     required this.clamCoin
+    }): super(key: key);
 
   @override
   State<ChatDetailPage> createState() => _ChatDetailPageState();
@@ -128,9 +136,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       ),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
-                      child: const Text(
-                        "1.0",
-                        style: TextStyle(
+                      child:  Text(
+                        widget.clamCoin,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,

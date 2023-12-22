@@ -6,7 +6,7 @@
  $datafinala = array();
 
 
-$sql = "SELECT * FROM chat WHERE shopID='$shopID' AND recieverID='$recieverID' AND is_approved='1'";
+$sql = "SELECT * FROM chat WHERE shopID='$shopID' AND recieverID='$recieverID' AND is_approved='1' ORDER BY add_date";
 
 $result = $conn->query($sql);
 

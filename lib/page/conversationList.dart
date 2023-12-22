@@ -13,7 +13,16 @@ class ConversationList extends StatefulWidget {
   String imageUrl;
   String time;
   bool isMessageRead;
-  ConversationList({super.key,required this.shopid,required this.recieverID, required this.name,required this.messageText,required this.imageUrl,required this.time,required this.isMessageRead});
+  String clamCoin;
+  ConversationList({super.key,
+  required this.shopid,
+  required this.recieverID,
+   required this.name,
+   required this.messageText,
+   required this.imageUrl,
+   required this.time,
+   required this.isMessageRead,
+   required this.clamCoin});
   
   @override
   State<ConversationList> createState() => _ConversationListState();
@@ -34,6 +43,7 @@ class _ConversationListState extends State<ConversationList> {
             recieverID:widget.recieverID,
             profileimg: widget.imageUrl,
             shopid:widget.shopid,
+            clamCoin: widget.clamCoin,
           );
         }));
       },

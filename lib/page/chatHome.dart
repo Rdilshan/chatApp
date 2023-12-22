@@ -52,8 +52,9 @@ class _ChathomeState extends State<Chathome> {
         String messageText = entry["messageText"];
         String imageURL = entry["imageURL"];
         String time = entry["time"];
+        String clamCoin = entry["clamCoin"];
 
-        ChatUsers newChatUser = ChatUsers(shopid,recieverID,name, messageText, imageURL, time);
+        ChatUsers newChatUser = ChatUsers(shopid,recieverID,name, messageText, imageURL, time,clamCoin);
 
         setState(() {
           chatUsers.add(newChatUser);
@@ -174,6 +175,7 @@ class _ChathomeState extends State<Chathome> {
                         imageUrl: FoundUser[index].imageURL,
                         time: FoundUser[index].time,
                         isMessageRead: false,
+                        clamCoin: FoundUser[index].clamCoin,
                       );
                     },
                   )

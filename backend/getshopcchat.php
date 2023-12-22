@@ -5,7 +5,7 @@
  $mobilenumber = $_POST['mobilenumber'];
  $datafinala = array();
  $shopname = ''; 
-$sql = "SELECT shopID,id FROM customers WHERE mobile='$mobilenumber' AND nic='$idnumber'";
+$sql = "SELECT shopID,id,points FROM customers WHERE mobile='$mobilenumber' AND nic='$idnumber'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -13,6 +13,7 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     $shopid = $row['shopID'];
     $id = $row['id'];
+    $clamCoin = $row['points'];
 
     $sql2 = "SELECT * FROM chat WHERE shopID='$shopid' AND recieverID='$id' AND is_approved='1' ORDER BY id DESC LIMIT 1";
     $result2 = $conn->query($sql2);
@@ -33,6 +34,7 @@ if ($result->num_rows > 0) {
         $data["name"] = $shopname;
         $data["messageText"] =  $row2['message'];
         $data["imageURL"] = "https://randomuser.me/api/portraits/men/5.jpg";
+        $data["clamCoin"] = $clamCoin;
 
         $dateString = $row2['add_date'];
         $dateTime = new DateTime($dateString);
