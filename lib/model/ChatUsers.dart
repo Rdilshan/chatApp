@@ -8,6 +8,7 @@ class ChatUsers {
   late String imageURL;
   late String time;
   late String clamCoin;
+  late String hasnotreadvalue;
   
   ChatUsers(this.shopid,
   this.recieverID,
@@ -15,5 +16,6 @@ class ChatUsers {
    this.messageText,
     this.imageURL,
      this.time,
-     this.clamCoin);
+     this.clamCoin,
+     this.hasnotreadvalue);
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:chatapp/page/LoginScreen.dart';
 import 'package:chatapp/page/conversationList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,12 +55,14 @@ class _ChathomeState extends State<Chathome> {
         String imageURL = entry["imageURL"];
         String time = entry["time"];
         String clamCoin = entry["clamCoin"];
+        String hasnotreadvalue = entry["hasnotreadvalue"];
 
-        ChatUsers newChatUser = ChatUsers(shopid,recieverID,name, messageText, imageURL, time,clamCoin);
+        ChatUsers newChatUser = ChatUsers(
+            shopid, recieverID, name, messageText, imageURL, time, clamCoin,hasnotreadvalue);
 
         setState(() {
           chatUsers.add(newChatUser);
-          isLoading=false;
+          isLoading = false;
         });
       }
     }
@@ -100,13 +104,13 @@ class _ChathomeState extends State<Chathome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SafeArea(
+            SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Shop List",
                       style: TextStyle(
                         fontSize: 32,
@@ -114,6 +118,40 @@ class _ChathomeState extends State<Chathome> {
                         color: Color.fromARGB(255, 3, 150, 173),
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 8, top: 2, bottom: 2),
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.pink[50],
+                      ),
+                      child: GestureDetector(
+                        onTap: () async {
+                          // Handle the click action here
+                          // You can perform the logout logic or navigate to another screen
+                          print("Logout clicked");
+                          final SharedPreferences prefs = await SharedPreferences.getInstance();
+                          await prefs.remove('idnumber');
+                          await prefs.remove('mobilenumber');
+
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(context,MaterialPageRoute(builder: (_) => const LoginScreen()));
+                        },
+
+                        child: const Row(
+                          children: <Widget>[
+                            Icon(Icons.add, color: Colors.pink, size: 20),
+                            SizedBox(width: 2),
+                            Text(
+                              "Logout",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -169,13 +207,14 @@ class _ChathomeState extends State<Chathome> {
                     itemBuilder: (context, index) {
                       return ConversationList(
                         shopid: FoundUser[index].shopid,
-                        recieverID:FoundUser[index].recieverID,
+                        recieverID: FoundUser[index].recieverID,
                         name: FoundUser[index].name,
                         messageText: FoundUser[index].messageText,
                         imageUrl: FoundUser[index].imageURL,
                         time: FoundUser[index].time,
                         isMessageRead: false,
                         clamCoin: FoundUser[index].clamCoin,
+                        hasnotreadvalue: FoundUser[index].hasnotreadvalue,
                       );
                     },
                   )
@@ -192,7 +231,6 @@ class _ChathomeState extends State<Chathome> {
                       ],
                     ),
                   ),
-
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -202,8 +240,7 @@ class _ChathomeState extends State<Chathome> {
                           color: Color.fromARGB(255, 4, 155, 178),
                           size: 80,
                         )
-                      : SizedBox(),
-                  SizedBox(height:16), // Optional spacing between the loading widget and other content
+                      : SizedBox(), // Optional spacing between the loading widget and other content
                   // Your other content/widgets go here
                 ],
               ),

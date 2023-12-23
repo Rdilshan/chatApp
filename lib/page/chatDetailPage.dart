@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chatapp/model/ChatMessage.dart';
+import 'package:chatapp/page/chatHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -95,7 +96,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      Navigator.push(context,MaterialPageRoute(builder: (_) => const Chathome()));
                     },
                     icon: Icon(
                       Icons.arrow_back,

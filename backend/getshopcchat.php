@@ -27,7 +27,16 @@ if ($result->num_rows > 0) {
         while($row3 = $result3->fetch_assoc()) {
             $shopname = $row3['shop_name'];
         }
+
         $data = array();
+        
+        $sql4 = "SELECT COUNT(status) AS COUNTNOTREAD FROM chat WHERE shopID='$shopid' AND recieverID='$id' AND is_approved='1' AND status='0'";
+        $result4 = $conn->query($sql4);
+        while($row4 = $result4->fetch_assoc()) {
+            $data['hasnotreadvalue'] = $row4['COUNTNOTREAD'];
+        }
+        
+
             
         $data["id"] = $shopid;
         $data['recieverID']= $row2['recieverID'];

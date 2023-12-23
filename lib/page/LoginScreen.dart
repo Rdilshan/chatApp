@@ -55,22 +55,22 @@ void ValidData(enteredValue, entermobilenumber, context) async {
 
 
 void loadData() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? idnumber = prefs.getString('idnumber');
-  final String? mobilenumber = prefs.getString('mobilenumber');
+  // final SharedPreferences prefs = await SharedPreferences.getInstance();
+  // final String? idnumber = prefs.getString('idnumber');
+  // final String? mobilenumber = prefs.getString('mobilenumber');
 
 
-  if (idnumber != null || mobilenumber != null) {
-    print('Counter value is set: $idnumber');
-    print('Counter value is set: $mobilenumber');
+  // if (idnumber != null || mobilenumber != null) {
+  //   print('Counter value is set: $idnumber');
+  //   print('Counter value is set: $mobilenumber');
 
-    Navigator.push(context,MaterialPageRoute(builder: (_) => const Chathome()));
-    // Add your logic based on the loaded data here
-  } else {
-    print('value is not set.');
-    // Handle the case where the counter value is not set
-    // You may want to set a default value or perform other actions
-  }
+  //   Navigator.push(context,MaterialPageRoute(builder: (_) => const Chathome()));
+  //   // Add your logic based on the loaded data here
+  // } else {
+  //   print('value is not set.');
+  //   // Handle the case where the counter value is not set
+  //   // You may want to set a default value or perform other actions
+  // }
 }
 
 
@@ -94,13 +94,13 @@ void loadData() async {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.height * 0.3,
-                  child: Image(image: AssetImage("assets/images/logo.png")),
+                  child:const Image(image: AssetImage("assets/images/logo.png")),
                 ),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             if (iscorrect)
-              Text("Wrong Email or Password",
+              const Text("Wrong Email or Password",
                   style: TextStyle(color: Colors.red)),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -144,7 +144,7 @@ void loadData() async {
               height: MediaQuery.of(context).size.height * 0.07,
               width: MediaQuery.of(context).size.width * 0.5,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 4, 155, 178),
+                color: const Color.fromARGB(255, 4, 155, 178),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextButton(

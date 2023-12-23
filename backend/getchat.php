@@ -27,5 +27,12 @@ if ($result->num_rows > 0) {
 }
 echo json_encode($datafinala);
 
+$sql2 = "UPDATE chat SET status = '1' WHERE shopID='$shopID' AND recieverID='$recieverID' AND is_approved='1' AND status='0'";
+$result2 = $conn->query($sql2);
+
+if ($result2) {
+    
+} 
+
 
 ?>
